@@ -1,0 +1,49 @@
+//	LABORATORIO#8
+// 	MANEJO DE CADENA  x)
+
+
+#include <conio.h>
+#include <stdio.h>
+#include <string.h>
+#include <graphics.h>
+#include <ctype.h>
+
+void inicializa()
+{
+int gm, gd =DETECT;
+initgraph(&gd,&gm, "C:\\TCPP\\BGI");
+}
+
+void capturacadena(int x, int y)
+{char tecla, cad [100];
+int pos;
+cad[0]='\x0';
+settextstyle(3,0,4);
+do{
+setcolor(WHITE);
+outtextxy(x,y,cad);
+tecla=getch();
+if(isalnum(tecla)|tecla==' ')
+{
+pos=strlen(cad);
+cad[pos]=tecla;
+cad[pos+1]='\x0';
+}
+if(tecla==8)
+{
+setcolor(7);
+outtextxy(x,y,cad);
+pos=strlen(cad);
+cad[pos-1]='\x0';
+}
+
+}while(tecla!=13);
+}
+void main()
+{
+inicializa();
+setbkcolor(7);
+settextstyle(3,0,4);
+outtextxy(100,50,"Escriba nombre para la partida");
+capturacadena(100,100);
+}

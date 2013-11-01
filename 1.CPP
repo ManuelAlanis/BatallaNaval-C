@@ -9,6 +9,9 @@
 #include <stdlib.h>;
 #include <graphics.h>;
 #include <dos.h>
+#include <ctype.h>
+#include <string.h>
+
 
 void inicializa ()
 		{int gm,gd=DETECT;
@@ -655,6 +658,51 @@ hongocompleto();
 }
 ///////////////////////FINALIZA PANTALLA INICIO
 
+////////////////////////////////////COMIENZA GUARDAR////////////////
+////////////////////////////////////////////////////
+
+
+
+void capturacadena(int x, int y)
+{char tecla, cad [100];
+int pos;
+cad[0]='\x0';
+settextstyle(3,0,4);
+do{
+setcolor(WHITE);
+outtextxy(x,y,cad);
+tecla=getch();
+if(isalnum(tecla)|tecla==' ')
+{
+pos=strlen(cad);
+cad[pos]=tecla;
+cad[pos+1]='\x0';
+}
+if(tecla==8)
+{
+setcolor(7);
+outtextxy(x,y,cad);
+pos=strlen(cad);
+cad[pos-1]='\x0';
+}
+
+}while(tecla!=13);
+}
+void guardar()
+{
+inicializa();
+setbkcolor(7);
+settextstyle(3,0,4);
+outtextxy(100,50,"Escriba nombre para la partida");
+capturacadena(100,100);
+}
+
+
+
+///////////////////////////TERMINA GUARDAR///////////////////////
+////////////////////////////////////////////////////////////////////
+
+
 
 
 ///////////////////////////////////////////////////////////////////////
@@ -673,7 +721,7 @@ settextstyle(2,0,0);
 	outtextxy(130,10,"Trofeos");
 
 	box(240,0,350,40,1,7);
-	outtextxy(250,10,"Agua");
+	outtextxy(250,10,"Guardar");
 
 	box(530,0,600,40,1,7);
 	outtextxy(540,10,"Salir");
@@ -883,7 +931,7 @@ box(0,0,getmaxx(),getmaxy(),1,0);
 	outtextxy(130,10,"Trofeos");
 
 	box(240,0,350,40,1,7);
-	outtextxy(250,10,"Agua");
+	outtextxy(250,10,"Guardar");
 
 	box(530,0,600,40,1,7);
 	outtextxy(540,10,"Salir");
@@ -965,10 +1013,10 @@ case 5:	box(10,120,110,140,1,7);
 //validar las pantalla
 	case 13: switch(i)
 		{ case 1: jugando();break;
-		  case 2: hongocompletomenu();break;
-		  case 3: hongocompletomenu();break;
-		  case 4: hongocompletomenu();break;
-		 case 5: hongocompletomenu();break;
+		  case 2: jugando();break;
+		  case 3: jugando();break;
+		  case 4: jugando();break;
+		 case 5: jugando	();break;
 		}
 //para recuerperar menu(pintar menu)
 if(i!=6)submenu();
@@ -994,7 +1042,7 @@ box(0,0,getmaxx(),getmaxy(),1,0);
 	outtextxy(130,10,"Trofeos");
 
 	box(240,0,350,40,1,7);
-	outtextxy(250,10,"Agua");
+	outtextxy(250,10,"Guardar");
 
 	box(530,0,600,40,1,7);
 	outtextxy(540,10,"Salir");
@@ -1110,7 +1158,7 @@ box(0,0,getmaxx(),getmaxy(),1,0);
 	outtextxy(130,10,"Trofeos");
 
 	box(240,0,350,40,1,7);
-	outtextxy(250,10,"Agua");
+	outtextxy(250,10,"Guardar");
 
 	box(530,0,600,40,1,7);
 	outtextxy(540,10,"Salir");
@@ -1135,7 +1183,7 @@ case 2:	box(120,0,230,40,1,RED);
 	outtextxy(130,10,"Trofeos");
 	break;
 case 3:	box(240,0,350,40,1,RED);
-	outtextxy(250,10,"Agua");
+	outtextxy(250,10,"Guardar");
 	break;
 case 4:	box(530,0,600,40,1,RED);
 	outtextxy(540,10,"Salir");
@@ -1151,7 +1199,7 @@ case 2:	box(120,0,230,40,1,7);
 	outtextxy(130,10,"Trofeos");
 	break;
 case 3:	box(240,0,350,40,1,7);
-	outtextxy(250,10,"Agua");
+	outtextxy(250,10,"Guardar");
 	break;
 case 4:	box(530,0,600,40,1,7);
 	outtextxy(540,10,"Salir");
@@ -1172,7 +1220,7 @@ case 4:	box(530,0,600,40,1,7);
 	case 13: switch(i)
 		{ case 1: muevesubmenu();break;
 		  case 2: muevesubmenu2();break;
-		  case 3: hongocompletomenu();break;
+		  case 3: guardar();break;
 		  case 4: tecla=27;break;
 		}
 //para recuerperar menu(pintar menu)
