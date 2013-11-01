@@ -1,0 +1,129 @@
+////MATRICES
+#include <conio.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <graphics.h>
+#include <dos.h>
+void inicializa ()
+{int gm,gd=DETECT;
+initgraph (&gd,&gm,"C:\\TCPP\\BGI");
+}
+
+void box (int x1,int y1,int x2,int y2,int relleno,int color)
+{int poly[8];
+poly[0]=x1;
+poly[1]=y1;
+poly[2]=x2;
+poly[3]=y1;
+poly[4]=x2;
+poly[5]=y2;
+poly[6]=x1;
+poly[7]=y2;
+setfillstyle (relleno,color);
+fillpoly (4,poly);
+}
+
+void pinta(int M[10][10])
+{ int i,j;
+char cad[20];
+setbkcolor(WHITE);
+settextstyle(2,0,0);
+for(i=0;i<10;i++)
+for(j=0;j<10;j++)
+{
+
+box (50+j*25,50+i*25,75+j*25,75+i*25,1,8);
+gcvt(M[i][j],2,cad);
+//outtextxy(105+j*50,105+i*50,cad);
+	 settextstyle (3,0,RED);
+	 setcolor(4);
+	 outtextxy (50,350,"Utiliza las flechas para moverte");
+	setcolor(WHITE);
+
+}
+}
+
+void asigna (int M[10][10])
+{int L[25],i,j,r,k;
+for (i=0;i<25;i++) L[i]=0;
+
+for (i=0;i<24;i++)
+	{do{	k=1+rand()%24;
+		r=0; j=0;
+		do{	if(k!=L[j])j++;
+			else r=1;
+		  }while(j<i && r==0);
+	}while(r==1);
+	L[i]=k;
+	}
+k=0;
+for(i=0;i<5;i++)
+for(j=0;j<5;j++)
+	{
+	M[i][j]=L[k];
+	k++;
+	}
+}
+
+void juega(int M[10][10])
+{int i,j,x,y,puntos;
+char tecla,cad[20],MUEV[20];
+i=4;j=4;x=4;y=4;
+puntos=0;
+pinta(M);
+do{     setcolor(RED);
+	rectangle(50+j*25,50+i*25,75+j*25,75+i*25);
+	tecla=getch();
+	setcolor(WHITE);
+	rectangle(50+j*25,50+i*25,75+j*25,75+i*25);
+switch(tecla)
+{
+case 13: box(50+j*25,50+i*25,75+j*25,75+i*25,1,RED);
+	 puntos++;
+	 gotoxy(1,1);
+	 settextstyle (0,0,RED);
+	 setcolor(4);
+	 outtextxy (350,50,"Fallaste");
+
+	 delay(500);
+	 setcolor(WHITE);
+	 outtextxy (350,50,"Fallaste");
+
+	// printf("%d",puntos);
+	 //gotoxy(1,1);
+	 //printf("%d",puntos);
+
+case 0: tecla=getch();
+
+	switch(tecla)
+	{
+	case 72:i--;break;
+	case 80:i++;break;
+	case 75:j--;break;
+	case 77:j++;break;
+
+	}
+if(i<0)i=0; if (i>9)i=9;
+if(j<0)j=0; if (j>9)j=9;
+/*
+M[y][x]=M[i][j];
+	 r
+box(100+x*50,100+y*50,150+x*50,150+y*50,1,RED);
+gcvt(M[y][x],2,cad);
+outtextxy(105+x*50,105+y*50,cad);
+M[i][j]=0;
+x=j;y=i;
+  */
+break;
+
+
+}
+  }while (tecla!=27);
+}
+
+void main()
+{ int M[10][10];
+asigna(M);
+inicializa();
+juega(M);
+}
