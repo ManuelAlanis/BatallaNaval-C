@@ -1,7 +1,7 @@
 //MATRICES
-#include <conio.h>;
-#include <stdio.h>;
-#include <stdlib.h>;
+#include <conio.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <graphics.h>
 #include <dos.h>
 void inicializa ()
@@ -24,6 +24,83 @@ setfillstyle (relleno,color);
 fillpoly (4,poly);
 }
 
+//////figura
+void figura (int x,int y)
+{
+int poly [8];
+poly[0]=x;
+poly[1]=y;
+//2
+poly[2]=x+25;
+poly[3]=y;
+//3
+poly[4]=x+25;
+poly[5]=100+y;
+//4
+
+poly[6]=x;
+poly[7]=y+100;
+
+//5
+setcolor(7);
+setfillstyle(1,7);
+fillpoly (4,poly);
+}
+
+/////end figura
+
+void ganajugador()
+{
+clearviewport();
+settextstyle(3,0,4);
+outtextxy(200,200,"Ganaste");
+//printf("Ganaste pinche puto");
+getch();
+}
+
+//////Comienza guardar partida
+void guardarpartida(int M[10][10],int M2[10][10],int G[10][10],int G2[10][10])
+{     int i,j;
+/*
+for(i=0;i<10;i++)
+for(j=0;j<10;j++)
+		{
+		M2[i][j]=0;
+		G2[i][j]=0;
+		}*/
+for(i=0;i<10;i++)
+for(j=0;j<10;j++)
+		G2[i][j]=G[i][j];
+		M2[i][j]=M[i][j];
+}
+void abrirpartida(int M[10][10],int M2[10][10],int G[10][10],int G2[10][10])
+{
+int i,j;
+
+     for(i=0;i<10;i++)
+     for(j=0;j<10;j++)
+		{
+		M[i][j]=M2[i][j];
+		G[i][j]=G2[i][j];
+		switch(G[i][j])
+				       {
+		case 2:box(350+j*25,50+i*25,375+j*25,75+i*25,1,RED);
+				break;  }
+	       //	if(G[i][j]==2)box(350+j*25,50+i*25,375+j*25,75+i*25,1,RED);
+		if(G[i][j]==1)box(350+j*25,50+i*25,375+j*25,75+i*25,1,WHITE);
+		if(G[i][j]==0)box(350+j*25,50+i*25,375+j*25,75+i*25,1,3);
+		if(G[i][j]==511)
+		////jugador
+
+		if(M[i][j]==2)box(50+j*25,50+i*25,75+j*25,75+i*25,1,RED);
+		if(M[i][j]==1)box(50+j*25,50+i*25,75+j*25,75+i*25,1,WHITE);
+		if(M[i][j]==0)box(50+j*25,50+i*25,75+j*25,75+i*25,1,3);
+		}
+     //box(350+j*25,50+i*25,375+j*25,75+i*25,1,WHITE);
+
+}
+
+
 void pintajugador(int M[10][10])
 {
 int i,j;
@@ -34,7 +111,7 @@ for(i=0;i<10;i++)
 for(j=0;j<10;j++)
 {box (50+j*25,50+i*25,75+j*25,75+i*25,1,3);
 M[i][j]=0;
-gcvt(M[i][j],2,cad);
+//gcvt(M[i][j],2,cad);
 //outtextxy(55+j*25,55+i*25,cad);
 delay(5);
 }
@@ -50,6 +127,7 @@ for(i=0;i<10;i++)
 for(j=0;j<10;j++)
 {box (50+j*25,50+i*25,75+j*25,75+i*25,1,3);
 //M[i][j]=0;
+
 gcvt(M[i][j],3,cad);
 outtextxy(55+j*25,55+i*25,cad);
 //delay(5);
@@ -119,7 +197,7 @@ if(j<6&&G[i][j]==0&&G[i][j+1]==0&&G[i][j+2]==0&&G[i][j+3]==0&&G[i][j+4]==0&&barc
 			   setcolor(BLUE);
 
 			   G[i][j]=511;
-			   gcvt(G[i][j],3,cad);
+	  //		   gcvt(G[i][j],3,cad);
 			   outtextxy(355+j*25,55+i*25,cad);
 			   //
 			   G[i][j+1]=511;
@@ -216,6 +294,7 @@ j=rand()%9;
 
 /////////////////termina generar barcos de 3
 //////////////genera barcos
+
 }
 
 
@@ -404,6 +483,9 @@ case 103:    {
 			   //setcolor(RED);
 			   setcolor(RED);
 
+
+			   figura(50+j*25,50+i*25);
+
 			   M[i][j]=411;
 			   gcvt(M[i][j],3,cad);
 			   outtextxy(55+j*25,55+i*25,cad);
@@ -559,11 +641,15 @@ break;
 ///////// comienza dispara enemigo
 void disparaenemigo(int M[10][10])
 {int i,j,bandera=-1;
+int barco5=0,barco4=0,barco3=0;
 char cad[20];
+
+
+
 	do{
 	i=rand()%9;
 	j=rand()%9;
-	if(M[i][j]==1)bandera=-1;
+	if(M[i][j]==1||M[i][j]==2)bandera=-1;
 	else
 	bandera=0;
 	}while(bandera!=0);
@@ -572,7 +658,7 @@ char cad[20];
 			{
 			setcolor(WHITE);
 
-			M[i][j]=1;
+			M[i][j]=2;
 		   //	   gcvt(M[i][j],3,cad);
 		   //	   outtextxy(355+j*25,55+i*25,cad);
 
@@ -594,7 +680,7 @@ char cad[20];
 
 				{
 
-
+				barco5++;
 				M[i][j]=1;
 			     //	gcvt(M[i][j],3,cad);
 		   //	   	outtextxy(355+j*25,55+i*25,cad);
@@ -610,11 +696,14 @@ char cad[20];
 				sound(950);delay(300);nosound();
 			       */ //	sound(800);delay(200);nosound();
 			   //	sound(950);delay(500);nosound();
-				sound(700);
-				delay(300);
+				sound(1000);
+				delay(100);
+				nosound();
+				delay(500);
 				settextstyle(8,0,6);
 				setcolor(7);
 				outtextxy(150,300,"Te dispararon !");
+
 				bandera=-1;
 				nosound();
 				}
@@ -622,7 +711,7 @@ char cad[20];
 
 			{
 
-
+			barco4++;
 			M[i][j]=1;
 			gcvt(M[i][j],3,cad);
 	   //	   	outtextxy(355+j*25,55+i*25,cad);
@@ -632,8 +721,10 @@ char cad[20];
 			outtextxy(150,300,"Te dispararon !");
 			delay(500);
 			      //	sound(950);delay(500);nosound();
-				sound(700);
-				delay(300);
+				sound(1000);
+				delay(100);
+				nosound();
+				delay(500);
 			settextstyle(8,0,6);
 			setcolor(7);
 			outtextxy(150,300,"Te dispararon !");
@@ -645,7 +736,7 @@ char cad[20];
 
 				{
 
-
+				barco3++;
 				M[i][j]=1;
 				gcvt(M[i][j],3,cad);
 		   //	   	outtextxy(355+j*25,55+i*25,cad);
@@ -657,8 +748,14 @@ char cad[20];
 				outtextxy(150,300,"Te dispararon !");
 				delay(500);
 					  //	sound(950);delay(500);nosound();
-						sound(700);
-						delay(300);
+						sound(1000);
+						delay(100);
+
+						sound(900);
+						delay(100);
+
+						sound(800);
+						delay(100);
 				settextstyle(8,0,6);
 				setcolor(7);
 				outtextxy(150,300,"Te dispararon !");
@@ -671,9 +768,13 @@ char cad[20];
 ///////////////termina disparaenemigo
 
 ////////////////////////JUEGA JUGADOR
-void disparajugador(int G[10][10],int M[10][10])
+void disparajugador(int G[10][10],int M[10][10],int M2[10][10],int G2[10][10])
 {int i,j;
+int cuenta5=0,cuenta4=0,cuenta3=0,banderaganador=-1;
+
 //x,y;
+
+int bandera=-1;
 char tecla,cad[20],MUEV[20];
 i=4;j=4;
 //x=4;y=4;//pintajugador(M);
@@ -688,23 +789,104 @@ do{
 	rectangle(350+j*25,50+i*25,375+j*25,75+i*25);
 switch(tecla)
 {
-	//poner barco de 4 cuadros
+
+  //	do{
+
 	case 101: comprobarmatrizenemigo(G); break;
+	////
 
-case 32:
-
-	if(G[i][j]!=0){
+case 115:  guardarpartida(M,M2,G,G2);  break;
+case 111:abrirpartida(M,M2,G,G2);      break;
+case 32://SPACE
+	if (G[i][j]==1||G[i][j]==2)bandera=-1; //repetidar
+	///barco de 5
+	if(G[i][j]==511){
 			box(350+j*25,50+i*25,375+j*25,75+i*25,1,RED);
 			setcolor(RED);
 			settextstyle(8,0,6);
 			outtextxy(150,300,"Le diste D: !");
+			sound(1000);
+
+						sound(1000);
+						delay(100);
+
+						sound(900);
+						delay(100);
+
+						sound(800);
+						delay(100);
+
+
+					  nosound();
+
 			delay(500);
 			settextstyle(8,0,6);
 			setcolor(7);
 			outtextxy(150,300,"Le diste D: !");
 	       //	juegaenemigo();
-			G[i][j]=1;
+			G[i][j]=2;
+			bandera=0;
+			cuenta5++;
+		      //	nosound();
+		      }
+	if(G[i][j]==411){
+			box(350+j*25,50+i*25,375+j*25,75+i*25,1,RED);
+			setcolor(RED);
+			settextstyle(8,0,6);
+			outtextxy(150,300,"Le diste D: !");
+			sound(1000);
 
+						sound(1000);
+						delay(100);
+
+						sound(900);
+						delay(100);
+
+						sound(800);
+						delay(100);
+
+
+					  nosound();
+
+			delay(500);
+			settextstyle(8,0,6);
+			setcolor(7);
+			outtextxy(150,300,"Le diste D: !");
+	       //	juegaenemigo();
+			G[i][j]=2;
+			bandera=0;
+			cuenta4++;
+		      //	nosound();
+		      }
+		if(G[i][j]==311){
+
+			box(350+j*25,50+i*25,375+j*25,75+i*25,1,RED);
+			setcolor(RED);
+			settextstyle(8,0,6);
+			outtextxy(150,300,"Le diste D: !");
+			sound(1000);
+
+						sound(1000);
+						delay(100);
+
+						sound(900);
+						delay(100);
+
+						sound(800);
+						delay(100);
+
+
+					  nosound();
+
+			delay(500);
+			settextstyle(8,0,6);
+			setcolor(7);
+			outtextxy(150,300,"Le diste D: !");
+	       //	juegaenemigo();
+			G[i][j]=2;
+			bandera=0;
+			cuenta3++;
+		      //	nosound();
 		      }
 
 if(G[i][j]==0){
@@ -719,10 +901,11 @@ if(G[i][j]==0){
 		setcolor(7);
 		outtextxy(150,300,"Fallaste !");
        //	juegaenemigo();
-		G[i][j]=2;
+		G[i][j]=1;
+		bandera=0;
 	}
-
-	disparaenemigo(M);
+   //
+	if(bandera==0&&banderaganador!=0)disparaenemigo(M);
 
 	break;
 
@@ -739,6 +922,13 @@ case 0: tecla=getch();
 	}
 if(i<0)i=0; if (i>9)i=9;
 if(j<0)j=0; if (j>9)j=9;
+if(cuenta5==5&&cuenta4==8&&cuenta3==6)
+			{
+			banderaganador=0;
+
+			}
+if(banderaganador==0)tecla=27;
+//if(banderaganador==0)ganajugador();
 /*
 M[y][x]=M[i][j];
 box(50+x*25,50+y*25,75+x*25,75+y*25,1,3);
@@ -749,9 +939,17 @@ x=j;y=i;
 */
 break;
 
-
+//}while(bandera!=0);///BANDERA DE REPETICION
+/*if(cuenta5==5&&cuenta4==8&&cuenta3==6)
+			{
+			banderaganador=0;
+			tecla=27;
+			}
+  */
 }
-  }while (tecla!=27);
+  }while (tecla!=27&&banderaganador!=0);
+
+  if(banderaganador==0)ganajugador();
 }
 
 ////////////////Termina juega jugador
@@ -762,7 +960,7 @@ break;
 void pintatablero()
 {
 textcolor(RED);
-settextstyle(8,0,2);
+settextstyle(6,0,2);
 outtextxy(100,350,"r   Barco de 5 horizontal");
 
 outtextxy(100,390,"t   Barco de 4 horizontal");
@@ -777,9 +975,13 @@ void main()
 {
 int M[10][10];
 int G[10][10];
+int M2[10][10];
+int G2[10][10];
+
 randomize();
 inicializa();
+//ganajugador();
 pintatablero();
 colocarbarcos(M);
-disparajugador(G,M);
+disparajugador(G,M,M2,G2);
 }
