@@ -24,30 +24,201 @@ setfillstyle (relleno,color);
 fillpoly (4,poly);
 }
 
-//////figura
-void figura (int x,int y)
+//////dibujo barcos
+
+//////comienza barco de 5 horizontal
+void figbarco5horizontal(int x,int y)
 {
-int poly [8];
-poly[0]=x;
+int poly [16];
+
+
+poly[0]=x+25;
 poly[1]=y;
 //2
-poly[2]=x+25;
+poly[2]=x+100;
+poly[3]=y;
+//3
+poly[4]=x+125;
+poly[5]=y+10;
+//4
+
+poly[6]=x+125;
+poly[7]=y+15;
+//5
+poly[8]=x+100;
+poly[9]=y+25;
+//6
+poly[10]=x+25;
+poly[11]=y+25;
+//7
+poly[12]=x;
+poly[13]=y+15;
+//8
+poly[14]=x;
+poly[15]=y+10;
+
+setbkcolor(0);
+setfillstyle(1,0);
+fillpoly (8,poly);
+}
+//////termina barco de 5 horizontal
+
+
+////comienza barco de 5 vertical
+void figbarco5vertical(int x,int y)
+{
+int poly [16];
+
+
+poly[0]=x+10;
+poly[1]=y;
+//2
+poly[2]=x+15;
 poly[3]=y;
 //3
 poly[4]=x+25;
-poly[5]=100+y;
+poly[5]=y+25;
 //4
 
-poly[6]=x;
+poly[6]=x+25;
 poly[7]=y+100;
-
 //5
-setcolor(7);
-setfillstyle(1,7);
-fillpoly (4,poly);
+poly[8]=x+15;
+poly[9]=y+125;
+//6
+poly[10]=x+10;
+poly[11]=y+125;
+//7
+poly[12]=x;
+poly[13]=y+100;
+//8
+poly[14]=x;
+poly[15]=y+25;
+
+setbkcolor(0);
+setfillstyle(1,0);
+fillpoly (8,poly);
 }
 
-/////end figura
+//////termina barco de 5 vertical
+
+//////////comienza barco de 4 vertical
+void figbarco4vertical(int x,int y)
+{
+int poly [16];
+
+
+poly[0]=x+10;
+poly[1]=y;
+//2
+poly[2]=x+15;
+poly[3]=y;
+//3
+poly[4]=x+25;
+poly[5]=y+25;
+//4
+
+poly[6]=x+25;
+poly[7]=y+75;
+//5
+poly[8]=x+15;
+poly[9]=y+100;
+//6
+poly[10]=x+10;
+poly[11]=y+100;
+//7
+poly[12]=x;
+poly[13]=y+75;
+//8
+poly[14]=x;
+poly[15]=y+25;
+
+setbkcolor(0);
+setfillstyle(1,0);
+fillpoly (8,poly);
+}
+
+/////end barco de 4 vertical
+
+////comienza barco de 4 horizontal
+void figbarco4horizontal(int x,int y)
+{
+int poly [16];
+
+
+poly[0]=x+25;
+poly[1]=y;
+//2
+poly[2]=x+75;
+poly[3]=y;
+//3
+poly[4]=x+100;
+poly[5]=y+10;
+//4
+
+poly[6]=x+100;
+poly[7]=y+15;
+//5
+poly[8]=x+75;
+poly[9]=y+25;
+//6
+poly[10]=x+25;
+poly[11]=y+25;
+//7
+poly[12]=x;
+poly[13]=y+15;
+//8
+poly[14]=x;
+poly[15]=y+10;
+
+setbkcolor(0);
+setfillstyle(1,0);
+fillpoly (8,poly);
+}
+
+
+/////termina barco de 4 terminal
+/////comienza barco horizontal de 3
+void figbarco3horizontal(int x,int y)
+{
+int poly [16];
+
+
+poly[0]=x+25;
+poly[1]=y;
+//2
+poly[2]=x+50;
+poly[3]=y;
+//3
+poly[4]=x+75;
+poly[5]=y+10;
+//4
+
+poly[6]=x+75;
+poly[7]=y+15;
+//5
+poly[8]=x+50;
+poly[9]=y+25;
+//6
+poly[10]=x+25;
+poly[11]=y+25;
+//7
+poly[12]=x;
+poly[13]=y+15;
+//8
+poly[14]=x;
+poly[15]=y+10;
+
+setbkcolor(0);
+setfillstyle(1,0);
+fillpoly (8,poly);
+}
+
+
+/////termina barco horizontal de 3
+
+
+
 
 void ganajugador()
 {
@@ -107,9 +278,10 @@ int i,j;
 char cad[20];
 setbkcolor(0);
 settextstyle(2,0,0);
+setcolor(BLUE);
 for(i=0;i<10;i++)
 for(j=0;j<10;j++)
-{box (50+j*25,50+i*25,75+j*25,75+i*25,1,3);
+{box (50+j*25,50+i*25,75+j*25,75+i*25,1,BLUE);
 M[i][j]=0;
 //gcvt(M[i][j],2,cad);
 //outtextxy(55+j*25,55+i*25,cad);
@@ -173,11 +345,11 @@ void pintaenemigo(int G[10][10])
 { int i,j,i2,j2,barcos5=0,barcos4=0,barcos3=0;
 
 char cad[20];
-setbkcolor(7);
+//setbkcolor(0);
 settextstyle(2,0,0);
 for(i=0;i<10;i++)
 for(j=0;j<10;j++)
-{box (350+j*25,50+i*25,375+j*25,75+i*25,1,3);
+{box (350+j*25,50+i*25,375+j*25,75+i*25,1,BLUE);
 G[i][j]=0;
 gcvt(G[i][j],2,cad);
 //outtextxy(355+j*25,55+i*25,cad);
@@ -198,23 +370,23 @@ if(j<6&&G[i][j]==0&&G[i][j+1]==0&&G[i][j+2]==0&&G[i][j+3]==0&&G[i][j+4]==0&&barc
 
 			   G[i][j]=511;
 	  //		   gcvt(G[i][j],3,cad);
-			   outtextxy(355+j*25,55+i*25,cad);
+		 //	   outtextxy(355+j*25,55+i*25,cad);
 			   //
 			   G[i][j+1]=511;
 			   gcvt(G[i][j+1],3,cad);
-			   outtextxy(300+25+55+j*25,55+i*25,cad);
+	       //		   outtextxy(300+25+55+j*25,55+i*25,cad);
 			   //
 			   G[i][j+2]=511;
 			   gcvt(G[i][j+2],3,cad);
-			   outtextxy(300+50+55+j*25,55+i*25,cad);
+		   //	   outtextxy(300+50+55+j*25,55+i*25,cad);
 			   //
 			   G[i][j+3]=511;
 			   gcvt(G[i][j+3],3,cad);
-			   outtextxy(300+75+55+j*25,55+i*25,cad);
+		     //	   outtextxy(300+75+55+j*25,55+i*25,cad);
 			   //
 			   G[i][j+4]=511;
 			   gcvt(G[i][j+3],3,cad);
-			   outtextxy(300+100+55+j*25,55+i*25,cad);
+		     //	   outtextxy(300+100+55+j*25,55+i*25,cad);
 			   barcos5++;
 			}
 
@@ -243,19 +415,19 @@ j=rand()%9;
 
 			   G[i][j]=411;
 			   gcvt(G[i][j],3,cad);
-			   outtextxy(300+55+j*25,55+i*25,cad);
+		    //	   outtextxy(300+55+j*25,55+i*25,cad);
 			   //
 			   G[i+1][j]=411;
 			   gcvt(G[i+1][j],3,cad);
-			   outtextxy(300+55+j*25,25+55+i*25,cad);
+		   //	   outtextxy(300+55+j*25,25+55+i*25,cad);
 			   //
 			   G[i+2][j]=411;
 			   gcvt(G[i+2][j],3,cad);
-			   outtextxy(300+55+j*25,50+55+i*25,cad);
+		    //	   outtextxy(300+55+j*25,50+55+i*25,cad);
 			   //
 			   G[i+3][j]=411;
 			   gcvt(G[i+3][j],3,cad);
-			   outtextxy(300+55+j*25,75+55+i*25,cad);
+		  //	   outtextxy(300+55+j*25,75+55+i*25,cad);
 			   barcos4++;
 			}
 	      }while(barcos4<2);
@@ -279,15 +451,15 @@ j=rand()%9;
 
 			G[i][j]=311;
 			gcvt(G[i][j],3,cad);
-			outtextxy(300+55+j*25,55+i*25,cad);
+		 //	outtextxy(300+55+j*25,55+i*25,cad);
 			//
 			G[i][j+1]=311;
 			gcvt(G[i][j+1],3,cad);
-			outtextxy(300+25+55+j*25,55+i*25,cad);
+		 //	outtextxy(300+25+55+j*25,55+i*25,cad);
 			//
 			G[i][j+2]=311;
 			gcvt(G[i][j+2],3,cad);
-			outtextxy(300+50+55+j*25,55+i*25,cad);
+		 //	outtextxy(300+50+55+j*25,55+i*25,cad);
 			barcos3++;
 		      }
 		  }while(barcos3<2);
@@ -392,7 +564,7 @@ do{
 	setcolor(RED);
 	rectangle(50+j*25,50+i*25,75+j*25,75+i*25);
 	tecla=getch();
-	setcolor(WHITE);
+	setcolor(BLUE);
 	rectangle(50+j*25,50+i*25,75+j*25,75+i*25);
 switch(tecla)
 ///BARCO DE 4
@@ -411,7 +583,9 @@ case 114:
 			{
 			   //box(50+j*25,50+i*25,75+j*25,75+i*25,1,RED);
 			   //setcolor(RED);
-			   setcolor(BLUE);
+		      //	   setcolor(BLUE);
+
+			   figbarco5horizontal(50+j*25,50+i*25);
 
 			   M[i][j]=511;
 			   gcvt(M[i][j],3,cad);
@@ -445,7 +619,11 @@ case 102:{
 			{
 			   //box(50+j*25,50+i*25,75+j*25,75+i*25,1,RED);
 			   //setcolor(RED);
-			   setcolor(BLUE);
+			//   setcolor(BLUE);
+
+
+			    figbarco5vertical(50+j*25,50+i*25);
+
 
 			   M[i][j]=511;
 			   gcvt(M[i][j],3,cad);
@@ -481,10 +659,10 @@ case 103:    {
 			{
 			   //box(50+j*25,50+i*25,75+j*25,75+i*25,1,RED);
 			   //setcolor(RED);
-			   setcolor(RED);
+			//   setcolor(BLUE);
 
-
-			   figura(50+j*25,50+i*25);
+			   //pintar el barco de 4
+			   figbarco4vertical(50+j*25,50+i*25);
 
 			   M[i][j]=411;
 			   gcvt(M[i][j],3,cad);
@@ -514,8 +692,8 @@ case 116:      {
 			{
 			   //box(50+j*25,50+i*25,75+j*25,75+i*25,1,RED);
 			   //setcolor(RED);
-			   setcolor(RED);
-
+			//   setcolor(RED);
+			   figbarco4horizontal(50+j*25,50+i*25);
 			   M[i][j]=411;
 			   gcvt(M[i][j],3,cad);
 			   outtextxy(55+j*25,55+i*25,cad);
@@ -544,8 +722,8 @@ case 121:        {
 
 		      //	setfillstyle(1,RED)
 			//box(50+j*25,50+i*25,75+j*25,75+i*25,1,RED);
-			setcolor(YELLOW);
-
+		   //	setcolor(YELLOW);
+			figbarco3horizontal(50+j*25,50+i*25);
 			M[i][j]=311;
 			gcvt(M[i][j],3,cad);
 			outtextxy(55+j*25,55+i*25,cad);
@@ -647,8 +825,8 @@ char cad[20];
 
 
 	do{
-	i=rand()%9;
-	j=rand()%9;
+	i=0+rand()%10;
+	j=0+rand()%10;
 	if(M[i][j]==1||M[i][j]==2)bandera=-1;
 	else
 	bandera=0;
@@ -669,7 +847,7 @@ char cad[20];
 			outtextxy(150,300,"Fall0 !");
 			delay(500);
 			settextstyle(8,0,6);
-			setcolor(7);
+			setcolor(0);
 			outtextxy(150,300,"Fall0 !");
 
 			}
@@ -701,7 +879,7 @@ char cad[20];
 				nosound();
 				delay(500);
 				settextstyle(8,0,6);
-				setcolor(7);
+				setcolor(0);
 				outtextxy(150,300,"Te dispararon !");
 
 				bandera=-1;
@@ -726,7 +904,7 @@ char cad[20];
 				nosound();
 				delay(500);
 			settextstyle(8,0,6);
-			setcolor(7);
+			setcolor(0);
 			outtextxy(150,300,"Te dispararon !");
 			bandera=-1;
 			nosound();
@@ -757,7 +935,7 @@ char cad[20];
 						sound(800);
 						delay(100);
 				settextstyle(8,0,6);
-				setcolor(7);
+				setcolor(0);
 				outtextxy(150,300,"Te dispararon !");
 
 				nosound();
@@ -782,10 +960,10 @@ pintaenemigo(G);
 do{
        //	box(50+j*25,50+i*25,75+j*25,75+i*25,1,BLUE);
        //	tecla=getch();
-	setcolor(RED);
+	setcolor(BLACK);
 	rectangle(350+j*25,50+i*25,375+j*25,75+i*25);
 	tecla=getch();
-	setcolor(WHITE);
+	setcolor(BLUE);
 	rectangle(350+j*25,50+i*25,375+j*25,75+i*25);
 switch(tecla)
 {
@@ -821,7 +999,7 @@ case 32://SPACE
 
 			delay(500);
 			settextstyle(8,0,6);
-			setcolor(7);
+			setcolor(0);
 			outtextxy(150,300,"Le diste D: !");
 	       //	juegaenemigo();
 			G[i][j]=2;
@@ -850,7 +1028,7 @@ case 32://SPACE
 
 			delay(500);
 			settextstyle(8,0,6);
-			setcolor(7);
+			setcolor(0);
 			outtextxy(150,300,"Le diste D: !");
 	       //	juegaenemigo();
 			G[i][j]=2;
@@ -880,7 +1058,7 @@ case 32://SPACE
 
 			delay(500);
 			settextstyle(8,0,6);
-			setcolor(7);
+			setcolor(0);
 			outtextxy(150,300,"Le diste D: !");
 	       //	juegaenemigo();
 			G[i][j]=2;
@@ -898,7 +1076,7 @@ if(G[i][j]==0){
 		outtextxy(150,300,"Fallaste !");
 		delay(500);
 		settextstyle(8,0,6);
-		setcolor(7);
+		setcolor(0);
 		outtextxy(150,300,"Fallaste !");
        //	juegaenemigo();
 		G[i][j]=1;
@@ -959,10 +1137,14 @@ break;
 
 void pintatablero()
 {
+int i,j;
+setfillstyle (RED,RED);
 textcolor(RED);
-settextstyle(6,0,2);
+settextstyle(6,0,1);
 outtextxy(100,350,"r   Barco de 5 horizontal");
 
+
+figbarco4horizontal(120,400);
 outtextxy(100,390,"t   Barco de 4 horizontal");
 
 outtextxy(100,420,"y   Barco de 3 horizontal");
