@@ -122,8 +122,9 @@ break;
 }
 
 void main()
-{ int M[10][10];
-asigna(M);
-inicializa();
-juega(M);
+{ 
+int M[10][10];
+	asigna(M);
+	inicializa();
+	juega(M);
 }
